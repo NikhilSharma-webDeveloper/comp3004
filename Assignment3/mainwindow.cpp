@@ -8,35 +8,29 @@
 #include <QGraphicsItemAnimation>
 #include <QDebug>
 #include "stdio.h"
+#include <QApplication>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsTextItem>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    scene(new QGraphicsScene(this)), // Initialize QGraphicsScene
-    groundFloor(new Rectangle(100, 100)),
-    firstFloor(new Rectangle(100, 100)),
-    secondFloor(new Rectangle(100, 100))
+    scene(new QGraphicsScene(this)) // Initialize QGraphicsScene
 {
-    //qDebug() << this->ui->graphicsView->width();
     ui->setupUi(this);
-
-    firstFloor->setPos(0, 100);
-    secondFloor->setPos(0, 200);
-
+    int height=this->ui->graphicsView->height()-20;
+    int width=this->ui->graphicsView->width()-20;
+    completeUI=new ElevatorsAndFloors(scene,width,height, 5,3);
     ui->graphicsView->setScene(scene); // Set the scene to the graphics view
-
-    scene->addItem(groundFloor);
-    scene->addItem(firstFloor);
-    scene->addItem(secondFloor);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete groundFloor;
-    delete firstFloor;
-    delete secondFloor;
     delete scene; // Delete QGraphicsScene object
+    delete completeUI;
 }
 
 

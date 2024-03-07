@@ -172,9 +172,9 @@
    <widget class="QWidget" name="ElevatorsAndPassangerView" native="true">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>40</y>
-      <width>1691</width>
+      <width>1701</width>
       <height>351</height>
      </rect>
     </property>
@@ -195,38 +195,77 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="ElevatorGUI" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <property name="spacing">
-         <number>0</number>
+      <widget class="QWidget" name="widget_7" native="true">
+       <widget class="QWidget" name="ElevatorGUI" native="true">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>841</width>
+          <height>351</height>
+         </rect>
         </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QGraphicsView" name="graphicsView">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        <widget class="QGraphicsView" name="graphicsView">
+         <property name="geometry">
+          <rect>
+           <x>22</x>
+           <y>-1</y>
+           <width>811</width>
+           <height>351</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding:5;</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="PassengerView_5">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>21</width>
+           <height>361</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgb(204,204,204)</string>
+         </property>
+         <property name="text">
+          <string>F L O O R S  </string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
       </widget>
-     </item>
-     <item>
-      <widget class="QWidget" name="widget_7" native="true"/>
      </item>
     </layout>
    </widget>
@@ -440,6 +479,9 @@
                     <property name="maximum">
                      <number>10</number>
                     </property>
+                    <property name="value">
+                     <number>5</number>
+                    </property>
                    </widget>
                   </item>
                  </layout>
@@ -477,6 +519,9 @@
                     </property>
                     <property name="maximum">
                      <number>10</number>
+                    </property>
+                    <property name="value">
+                     <number>3</number>
                     </property>
                    </widget>
                   </item>

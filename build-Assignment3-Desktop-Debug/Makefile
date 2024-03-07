@@ -52,10 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Assignment3/main.cpp \
+SOURCES       = ../Assignment3/datastructure.cpp \
+		../Assignment3/elevatorsandfloors.cpp \
+		../Assignment3/main.cpp \
 		../Assignment3/mainwindow.cpp \
 		../Assignment3/rectangle.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = datastructure.o \
+		elevatorsandfloors.o \
+		main.o \
 		mainwindow.o \
 		rectangle.o \
 		moc_mainwindow.o
@@ -137,9 +141,13 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../Assignment3/Assignment3.pro ../Assignment3/mainwindow.h \
+		../Assignment3/Assignment3.pro ../Assignment3/datastructure.h \
+		../Assignment3/elevatorsandfloors.h \
+		../Assignment3/mainwindow.h \
 		../Assignment3/rectangle.h \
-		../Assignment3/rectangle.h ../Assignment3/main.cpp \
+		../Assignment3/rectangle.h ../Assignment3/datastructure.cpp \
+		../Assignment3/elevatorsandfloors.cpp \
+		../Assignment3/main.cpp \
 		../Assignment3/mainwindow.cpp \
 		../Assignment3/rectangle.cpp
 QMAKE_TARGET  = Assignment3
@@ -327,8 +335,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Assignment3/mainwindow.h ../Assignment3/rectangle.h ../Assignment3/rectangle.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Assignment3/main.cpp ../Assignment3/mainwindow.cpp ../Assignment3/rectangle.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Assignment3/datastructure.h ../Assignment3/elevatorsandfloors.h ../Assignment3/mainwindow.h ../Assignment3/rectangle.h ../Assignment3/rectangle.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Assignment3/datastructure.cpp ../Assignment3/elevatorsandfloors.cpp ../Assignment3/main.cpp ../Assignment3/mainwindow.cpp ../Assignment3/rectangle.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Assignment3/mainwindow.ui $(DISTDIR)/
 
 
@@ -366,6 +374,8 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
 moc_mainwindow.cpp: ../Assignment3/mainwindow.h \
 		../Assignment3/rectangle.h \
+		../Assignment3/elevatorsAndFloors.h \
+		../Assignment3/datastructure.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_comp3004/build-Assignment3-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_comp3004/Assignment3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Assignment3/mainwindow.h -o moc_mainwindow.cpp
@@ -391,12 +401,23 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+datastructure.o: ../Assignment3/datastructure.cpp ../Assignment3/datastructure.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datastructure.o ../Assignment3/datastructure.cpp
+
+elevatorsandfloors.o: ../Assignment3/elevatorsandfloors.cpp ../Assignment3/elevatorsandfloors.h \
+		../Assignment3/datastructure.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o elevatorsandfloors.o ../Assignment3/elevatorsandfloors.cpp
+
 main.o: ../Assignment3/main.cpp ../Assignment3/mainwindow.h \
-		../Assignment3/rectangle.h
+		../Assignment3/rectangle.h \
+		../Assignment3/elevatorsAndFloors.h \
+		../Assignment3/datastructure.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Assignment3/main.cpp
 
 mainwindow.o: ../Assignment3/mainwindow.cpp ../Assignment3/mainwindow.h \
 		../Assignment3/rectangle.h \
+		../Assignment3/elevatorsAndFloors.h \
+		../Assignment3/datastructure.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Assignment3/mainwindow.cpp
 

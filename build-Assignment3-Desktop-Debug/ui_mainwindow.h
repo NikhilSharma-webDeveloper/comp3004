@@ -36,10 +36,10 @@ public:
     QLabel *PassengerView;
     QWidget *ElevatorsAndPassangerView;
     QHBoxLayout *horizontalLayout;
-    QWidget *ElevatorGUI;
-    QVBoxLayout *verticalLayout_4;
-    QGraphicsView *graphicsView;
     QWidget *widget_7;
+    QWidget *ElevatorGUI;
+    QGraphicsView *graphicsView;
+    QLabel *PassengerView_5;
     QWidget *AdminViewAndConsoleLogHeading;
     QHBoxLayout *horizontalLayout_2;
     QLabel *PassengerView_3;
@@ -154,29 +154,33 @@ public:
 
         ElevatorsAndPassangerView = new QWidget(centralwidget);
         ElevatorsAndPassangerView->setObjectName(QString::fromUtf8("ElevatorsAndPassangerView"));
-        ElevatorsAndPassangerView->setGeometry(QRect(10, 40, 1691, 351));
+        ElevatorsAndPassangerView->setGeometry(QRect(0, 40, 1701, 351));
         horizontalLayout = new QHBoxLayout(ElevatorsAndPassangerView);
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        ElevatorGUI = new QWidget(ElevatorsAndPassangerView);
-        ElevatorGUI->setObjectName(QString::fromUtf8("ElevatorGUI"));
-        verticalLayout_4 = new QVBoxLayout(ElevatorGUI);
-        verticalLayout_4->setSpacing(0);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        graphicsView = new QGraphicsView(ElevatorGUI);
-        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        sizePolicy1.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
-        graphicsView->setSizePolicy(sizePolicy1);
-
-        verticalLayout_4->addWidget(graphicsView);
-
-
-        horizontalLayout->addWidget(ElevatorGUI);
-
         widget_7 = new QWidget(ElevatorsAndPassangerView);
         widget_7->setObjectName(QString::fromUtf8("widget_7"));
+        ElevatorGUI = new QWidget(widget_7);
+        ElevatorGUI->setObjectName(QString::fromUtf8("ElevatorGUI"));
+        ElevatorGUI->setGeometry(QRect(0, 0, 841, 351));
+        graphicsView = new QGraphicsView(ElevatorGUI);
+        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
+        graphicsView->setGeometry(QRect(22, -1, 811, 351));
+        sizePolicy1.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
+        graphicsView->setSizePolicy(sizePolicy1);
+        graphicsView->setStyleSheet(QString::fromUtf8("padding:5;"));
+        PassengerView_5 = new QLabel(ElevatorGUI);
+        PassengerView_5->setObjectName(QString::fromUtf8("PassengerView_5"));
+        PassengerView_5->setGeometry(QRect(0, 0, 21, 361));
+        sizePolicy1.setHeightForWidth(PassengerView_5->sizePolicy().hasHeightForWidth());
+        PassengerView_5->setSizePolicy(sizePolicy1);
+        PassengerView_5->setFont(font1);
+        PassengerView_5->setStyleSheet(QString::fromUtf8("background: rgb(204,204,204)"));
+        PassengerView_5->setTextFormat(Qt::RichText);
+        PassengerView_5->setScaledContents(true);
+        PassengerView_5->setAlignment(Qt::AlignCenter);
+        PassengerView_5->setWordWrap(true);
 
         horizontalLayout->addWidget(widget_7);
 
@@ -257,6 +261,7 @@ public:
         nOfFloors->setObjectName(QString::fromUtf8("nOfFloors"));
         nOfFloors->setMinimum(2);
         nOfFloors->setMaximum(10);
+        nOfFloors->setValue(5);
 
         horizontalLayout_6->addWidget(nOfFloors);
 
@@ -278,6 +283,7 @@ public:
         nOfElevators->setObjectName(QString::fromUtf8("nOfElevators"));
         nOfElevators->setMinimum(2);
         nOfElevators->setMaximum(10);
+        nOfElevators->setValue(3);
 
         horizontalLayout_7->addWidget(nOfElevators);
 
@@ -367,6 +373,7 @@ public:
         documentHeading->setText(QCoreApplication::translate("MainWindow", "Assignment 3 Comp 3004 Nikhil Sharma ", nullptr));
         PassengerView_2->setText(QCoreApplication::translate("MainWindow", "Elevators", nullptr));
         PassengerView->setText(QCoreApplication::translate("MainWindow", "Passanger View", nullptr));
+        PassengerView_5->setText(QCoreApplication::translate("MainWindow", "F L O O R S  ", nullptr));
         PassengerView_3->setText(QCoreApplication::translate("MainWindow", "ADMIN VIEW", nullptr));
         PassengerView_4->setText(QCoreApplication::translate("MainWindow", "CONSOLE LOGS", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "# Floors", nullptr));

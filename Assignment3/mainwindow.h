@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "rectangle.h"
+#include "elevatorsandfloors.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,8 +20,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
-    Rectangle *groundFloor;
-    Rectangle *firstFloor;
-    Rectangle *secondFloor;
+    ElevatorsAndFloors *completeUI;
+
 };
 #endif // MAINWINDOW_H

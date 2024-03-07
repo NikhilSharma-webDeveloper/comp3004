@@ -8,7 +8,7 @@
 
 class Rectangle : public QGraphicsObject{
 public:
-    Rectangle(qreal w, qreal h, QGraphicsObject *parent=nullptr);
+    Rectangle(qreal w, qreal h,int x, int y, QGraphicsObject *parent=nullptr);
     QRectF boundingRect() const override;
     void paint(QPainter *painter, [[maybe_unused]] const QStyleOptionGraphicsItem *option, [[maybe_unused]] QWidget *widget= nullptr) override;
 
@@ -16,6 +16,8 @@ public:
 private:
     qreal width;
     qreal height;
+    int x;
+    int y;
 };
 
 #endif // RECTANGLE_H

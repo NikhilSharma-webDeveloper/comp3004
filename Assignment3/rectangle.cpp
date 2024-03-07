@@ -1,6 +1,6 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle(qreal w, qreal h, QGraphicsObject *parent) : QGraphicsObject(parent), width(w), height(h)
+Rectangle::Rectangle(qreal w, qreal h,int x,int y, QGraphicsObject *parent) : QGraphicsObject(parent), width(w), height(h),x(x),y(y)
 {
 
 }
@@ -15,14 +15,6 @@ void Rectangle::paint(QPainter *painter, [[maybe_unused]] const QStyleOptionGrap
     painter->setPen(Qt::black);
     painter->setBrush(Qt::NoBrush);
     painter->drawRect(-width / 2, -height / 2, width, height);
-//    painter->drawLine(-width / 2, -m_height / 2, -width / 2 - m_depth / 2, -m_height / 2 - m_depth / 2);
-//    painter->drawLine(width / 2, -m_height / 2, width / 2 - m_depth / 2, -m_height / 2 - m_depth / 2);
-//    painter->drawLine(width / 2, m_height / 2, width / 2 - m_depth / 2, m_height / 2 - m_depth / 2);
-//    painter->drawLine(-width / 2, m_height / 2, -width / 2 - m_depth / 2, m_height / 2 - m_depth / 2);
-//    painter->drawLine(-width / 2 - m_depth / 2, -m_height / 2 - m_depth / 2, width / 2 - m_depth / 2, -m_height / 2 - m_depth / 2);
-//    painter->drawLine(width / 2 - m_depth / 2, -m_height / 2 - m_depth / 2, width / 2 - m_depth / 2, m_height / 2 - m_depth / 2);
-//    painter->drawLine(width / 2 - m_depth / 2, m_height / 2 - m_depth / 2, -width / 2 - m_depth / 2, m_height / 2 - m_depth / 2);
-//    painter->drawLine(-width / 2 - m_depth / 2, m_height / 2 - m_depth / 2, -width / 2 - m_depth / 2, -m_height / 2 - m_depth / 2);
 
 }
 
