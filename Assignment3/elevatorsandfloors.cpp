@@ -1,6 +1,6 @@
 #include "elevatorsandfloors.h"
 
-ElevatorsAndFloors::ElevatorsAndFloors(QGraphicsScene *scene, int width, int height, int nOfFl, int nOfEl) : nOfFloors(nOfFl), nOfElevators(nOfEl)
+ElevatorsAndFloors::ElevatorsAndFloors(QGraphicsScene *scene, int width, int height, int nOfFl, int nOfEl) : nOfFloors(nOfFl), nOfElevators(nOfEl), width(width), height(height)
 {
     data=new std::list<DataStructure*>();
     generateUI(scene, width, height);
@@ -8,8 +8,9 @@ ElevatorsAndFloors::ElevatorsAndFloors(QGraphicsScene *scene, int width, int hei
 
 void ElevatorsAndFloors::generateUI(QGraphicsScene *scene, int width, int height){
     int x=0;
+
     for(int i=0;i<nOfElevators;i++){
-        DataStructure *temp=new DataStructure(scene,x,0,width/nOfElevators, height/nOfFloors, nOfFloors);
+        DataStructure *temp=new DataStructure(scene,x,0,(width/nOfElevators), height/nOfFloors, nOfFloors);
         data->push_back(temp);
         x+=(width/nOfElevators);
     }
@@ -17,11 +18,19 @@ void ElevatorsAndFloors::generateUI(QGraphicsScene *scene, int width, int height
 
 ElevatorsAndFloors::~ElevatorsAndFloors(){
    deleteElevatorsAndFloors();
+   delete data;
 }
 
 void ElevatorsAndFloors::deleteElevatorsAndFloors(){
     for (auto it = data->begin(); it != data->end(); ++it) {
                 delete *it;
      }
-     delete data;
+  data->clear();
+}
+
+void ElevatorsAndFloors::updateUi(QGraphicsScene *scene,int nOfFloors, int nOfElevators){
+    deleteElevatorsAndFloors();
+    this->nOfElevators=nOfElevators;
+    this->nOfFloors=nOfFloors;
+    generateUI(scene, width,height);
 }

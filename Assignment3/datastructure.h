@@ -19,7 +19,7 @@ private:
     int yAxis;//position of elevator on yaxis
     Rectangle *elevator;
     std::list<Rectangle*> *floors;
-    void createElevator(QGraphicsScene *scene, int width, int height);
+    void createElevator(QGraphicsScene *scene, int width, int height,int nOfFloors);
     void createFloors(QGraphicsScene *scene, int width, int height, int nOfFloors);
     void destroyFloorsAndElevator();
 };

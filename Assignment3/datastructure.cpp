@@ -2,14 +2,16 @@
 
 DataStructure::DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors): xAxis(x),yAxis(y)
 {
-  createElevator(scene, width, height);
+
   floors=new std::list<Rectangle*>();
   createFloors(scene,width,height,nOfFloors);
+  createElevator(scene, width, height,nOfFloors);
 }
 
-void DataStructure::createElevator(QGraphicsScene *scene, int width, int height){
-    elevator=new Rectangle(width, height,xAxis,yAxis);
-    elevator->setPos(xAxis,yAxis);
+void DataStructure::createElevator(QGraphicsScene *scene, int width, int height, int nOfFloors){
+    elevator=new Rectangle(width-10, height-10,xAxis,(height*nOfFloors));
+    elevator->setPos(xAxis,(height*(nOfFloors-1)));
+    elevator->setBackgroundColor(Qt::yellow);
     scene->addItem(elevator);
 }
 
@@ -23,9 +25,11 @@ void DataStructure::createFloors(QGraphicsScene *scene, int width, int height, i
       scene->addItem(temp);
       startHeight+=height;
       floors->push_back(temp);
-      qDebug() << "Done with these";
+      scene->setSceneRect(scene->sceneRect().united(temp->sceneBoundingRect()));
+   }
   }
-}
+
+
 
 DataStructure::~DataStructure(){
     destroyFloorsAndElevator();
@@ -37,5 +41,6 @@ void DataStructure::destroyFloorsAndElevator(){
     for (auto it = floors->begin(); it != floors->end(); ++it) {
                 delete *it;
      }
+
      delete floors;
 }

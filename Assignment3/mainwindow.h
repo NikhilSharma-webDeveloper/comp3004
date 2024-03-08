@@ -22,5 +22,8 @@ private:
     QGraphicsScene *scene;
     ElevatorsAndFloors *completeUI;
 
+private slots:
+    void onChangeDimensionClicked();
+
 };
 #endif // MAINWINDOW_H

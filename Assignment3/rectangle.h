@@ -11,6 +11,7 @@ public:
     Rectangle(qreal w, qreal h,int x, int y, QGraphicsObject *parent=nullptr);
     QRectF boundingRect() const override;
     void paint(QPainter *painter, [[maybe_unused]] const QStyleOptionGraphicsItem *option, [[maybe_unused]] QWidget *widget= nullptr) override;
+    void setBackgroundColor(const QColor &color );
 
 
 private:
@@ -18,6 +19,7 @@ private:
     qreal height;
     int x;
     int y;
+    QColor brushColor;
 };
 
 #endif // RECTANGLE_H
