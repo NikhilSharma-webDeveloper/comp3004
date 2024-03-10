@@ -24,6 +24,10 @@ private:
 
 private slots:
     void onChangeDimensionClicked();
+    void upElevatorRequested();
+    void downElevatorRequested();
+    void printUpdatesOnConsole(QString update);
+    void moveElevator(int floor);
 
 };
 #endif // MAINWINDOW_H

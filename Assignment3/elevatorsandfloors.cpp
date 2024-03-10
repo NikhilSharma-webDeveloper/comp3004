@@ -34,3 +34,8 @@ void ElevatorsAndFloors::updateUi(QGraphicsScene *scene,int nOfFloors, int nOfEl
     this->nOfFloors=nOfFloors;
     generateUI(scene, width,height);
 }
+
+
+Rectangle* ElevatorsAndFloors::assignElevator(int floor){
+return nullptr;
+}

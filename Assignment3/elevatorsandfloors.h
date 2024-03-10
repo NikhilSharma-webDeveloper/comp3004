@@ -6,12 +6,14 @@
 #include <list>
 #include <QDebug>
 
+
 class ElevatorsAndFloors
 {
 public:
     ElevatorsAndFloors(QGraphicsScene *scene,int width, int height, int nOfFl=5, int nOfEl=3);
     ~ElevatorsAndFloors();
     void updateUi(QGraphicsScene *scene,int nOfFloors, int nOfElevators);
+    Rectangle* assignElevator(int floor);
 
 private:
     int nOfFloors;//no of floors we are making

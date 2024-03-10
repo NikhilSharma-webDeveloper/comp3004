@@ -1,6 +1,6 @@
 #include "datastructure.h"
 
-DataStructure::DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors): xAxis(x),yAxis(y)
+DataStructure::DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors): xAxis(x),yAxis(y), free(true)
 {
 
   floors=new std::list<Rectangle*>();
@@ -29,6 +29,14 @@ void DataStructure::createFloors(QGraphicsScene *scene, int width, int height, i
    }
   }
 
+
+void DataStructure::setFree(bool m){
+    free=m;
+}
+
+bool DataStructure::isFree(){
+    return free;
+}
 
 
 DataStructure::~DataStructure(){

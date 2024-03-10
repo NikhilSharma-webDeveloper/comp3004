@@ -18,6 +18,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -70,6 +71,7 @@ public:
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QWidget *widget_8;
+    QTextBrowser *consoleOutput;
     QWidget *widget_7;
     QWidget *ElevatorGUI;
     QGraphicsView *graphicsView;
@@ -80,9 +82,9 @@ public:
     QWidget *widget_6;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_6;
-    QSpinBox *spinBox;
-    QPushButton *pushButton;
-    QPushButton *pushButton_4;
+    QSpinBox *spinBoxFloors;
+    QPushButton *pushButtonUp;
+    QPushButton *pushButtonDown;
     QFrame *frame_4;
     QFrame *frame_5;
 
@@ -203,7 +205,7 @@ public:
 
         FooterArea = new QWidget(centralwidget);
         FooterArea->setObjectName(QString::fromUtf8("FooterArea"));
-        FooterArea->setGeometry(QRect(0, 510, 1691, 211));
+        FooterArea->setGeometry(QRect(0, 510, 1701, 211));
         horizontalLayout_3 = new QHBoxLayout(FooterArea);
         horizontalLayout_3->setSpacing(0);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
@@ -343,6 +345,14 @@ public:
 
         widget_8 = new QWidget(FooterArea);
         widget_8->setObjectName(QString::fromUtf8("widget_8"));
+        consoleOutput = new QTextBrowser(widget_8);
+        consoleOutput->setObjectName(QString::fromUtf8("consoleOutput"));
+        consoleOutput->setGeometry(QRect(-5, 1, 861, 221));
+        QFont font2;
+        font2.setPointSize(13);
+        consoleOutput->setFont(font2);
+        consoleOutput->setAutoFillBackground(true);
+        consoleOutput->setStyleSheet(QString::fromUtf8("padding:15;"));
 
         horizontalLayout_3->addWidget(widget_8);
 
@@ -399,17 +409,17 @@ public:
 
         horizontalLayout_9->addWidget(label_6);
 
-        spinBox = new QSpinBox(widget_6);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBoxFloors = new QSpinBox(widget_6);
+        spinBoxFloors->setObjectName(QString::fromUtf8("spinBoxFloors"));
 
-        horizontalLayout_9->addWidget(spinBox);
+        horizontalLayout_9->addWidget(spinBoxFloors);
 
-        pushButton = new QPushButton(frame_3);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(490, 40, 83, 25));
-        pushButton_4 = new QPushButton(frame_3);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(630, 40, 83, 25));
+        pushButtonUp = new QPushButton(frame_3);
+        pushButtonUp->setObjectName(QString::fromUtf8("pushButtonUp"));
+        pushButtonUp->setGeometry(QRect(490, 40, 83, 25));
+        pushButtonDown = new QPushButton(frame_3);
+        pushButtonDown->setObjectName(QString::fromUtf8("pushButtonDown"));
+        pushButtonDown->setGeometry(QRect(630, 40, 83, 25));
         frame_4 = new QFrame(widget_3);
         frame_4->setObjectName(QString::fromUtf8("frame_4"));
         frame_4->setGeometry(QRect(0, 100, 421, 341));
@@ -442,11 +452,16 @@ public:
         label_4->setText(QCoreApplication::translate("MainWindow", "Building Emergency Testing", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "Fire", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Power Outage", nullptr));
+        consoleOutput->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;\"><br /></p></body></html>", nullptr));
         PassengerView_5->setText(QCoreApplication::translate("MainWindow", "F L O O R S  ", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "FLOOR PANEL", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Current Floor", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "UP", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("MainWindow", "DOWN ", nullptr));
+        pushButtonUp->setText(QCoreApplication::translate("MainWindow", "UP", nullptr));
+        pushButtonDown->setText(QCoreApplication::translate("MainWindow", "DOWN ", nullptr));
     } // retranslateUi
 
 };
