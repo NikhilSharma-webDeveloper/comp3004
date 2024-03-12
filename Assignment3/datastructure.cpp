@@ -1,15 +1,15 @@
 #include "datastructure.h"
 
-DataStructure::DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors): xAxis(x),yAxis(y), free(true)
+DataStructure::DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors, int elevatorNumber): xAxis(x),yAxis(y), free(true)
 {
 
   floors=new std::list<Rectangle*>();
   createFloors(scene,width,height,nOfFloors);
-  createElevator(scene, width, height,nOfFloors);
+  createElevator(scene, width, height,nOfFloors,elevatorNumber);
 }
 
-void DataStructure::createElevator(QGraphicsScene *scene, int width, int height, int nOfFloors){
-    elevator=new Rectangle(width-10, height-10,xAxis,(height*nOfFloors));
+void DataStructure::createElevator(QGraphicsScene *scene, int width, int height, int nOfFloors, int elevatorNumber){
+    elevator=new Rectangle(width-10, height-10,xAxis,(height*nOfFloors),elevatorNumber+1);
     elevator->setPos(xAxis,(height*(nOfFloors-1)));
     elevator->setBackgroundColor(Qt::yellow);
     scene->addItem(elevator);
@@ -30,15 +30,6 @@ void DataStructure::createFloors(QGraphicsScene *scene, int width, int height, i
   }
 
 
-void DataStructure::setFree(bool m){
-    free=m;
-}
-
-bool DataStructure::isFree(){
-    return free;
-}
-
-
 DataStructure::~DataStructure(){
     destroyFloorsAndElevator();
 }
@@ -51,4 +42,8 @@ void DataStructure::destroyFloorsAndElevator(){
      }
 
      delete floors;
+}
+
+Rectangle* DataStructure::getElevator(){
+    return elevator;
 }

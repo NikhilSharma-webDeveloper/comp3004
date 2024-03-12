@@ -86,6 +86,29 @@ public:
     QPushButton *pushButtonUp;
     QPushButton *pushButtonDown;
     QFrame *frame_4;
+    QLabel *label_7;
+    QWidget *widget_9;
+    QWidget *widget_10;
+    QVBoxLayout *verticalLayout_4;
+    QPushButton *two;
+    QPushButton *four;
+    QPushButton *six;
+    QPushButton *eight;
+    QPushButton *ten;
+    QWidget *widget_11;
+    QVBoxLayout *verticalLayout_6;
+    QPushButton *one;
+    QPushButton *three;
+    QPushButton *five;
+    QPushButton *seven;
+    QPushButton *nine;
+    QWidget *widget_12;
+    QHBoxLayout *horizontalLayout_10;
+    QPushButton *pushButton;
+    QPushButton *pushButton_14;
+    QPushButton *helpButton;
+    QLabel *label_8;
+    QSpinBox *elevatorSelectedSpinBox;
     QFrame *frame_5;
 
     void setupUi(QMainWindow *MainWindow)
@@ -425,6 +448,106 @@ public:
         frame_4->setGeometry(QRect(0, 100, 421, 341));
         frame_4->setFrameShape(QFrame::StyledPanel);
         frame_4->setFrameShadow(QFrame::Raised);
+        label_7 = new QLabel(frame_4);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setGeometry(QRect(130, 10, 161, 20));
+        label_7->setFont(font1);
+        label_7->setAlignment(Qt::AlignCenter);
+        widget_9 = new QWidget(frame_4);
+        widget_9->setObjectName(QString::fromUtf8("widget_9"));
+        widget_9->setGeometry(QRect(10, 70, 401, 181));
+        widget_10 = new QWidget(widget_9);
+        widget_10->setObjectName(QString::fromUtf8("widget_10"));
+        widget_10->setGeometry(QRect(230, 20, 101, 167));
+        verticalLayout_4 = new QVBoxLayout(widget_10);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        two = new QPushButton(widget_10);
+        two->setObjectName(QString::fromUtf8("two"));
+
+        verticalLayout_4->addWidget(two);
+
+        four = new QPushButton(widget_10);
+        four->setObjectName(QString::fromUtf8("four"));
+
+        verticalLayout_4->addWidget(four);
+
+        six = new QPushButton(widget_10);
+        six->setObjectName(QString::fromUtf8("six"));
+
+        verticalLayout_4->addWidget(six);
+
+        eight = new QPushButton(widget_10);
+        eight->setObjectName(QString::fromUtf8("eight"));
+
+        verticalLayout_4->addWidget(eight);
+
+        ten = new QPushButton(widget_10);
+        ten->setObjectName(QString::fromUtf8("ten"));
+
+        verticalLayout_4->addWidget(ten);
+
+        widget_11 = new QWidget(widget_9);
+        widget_11->setObjectName(QString::fromUtf8("widget_11"));
+        widget_11->setGeometry(QRect(60, 20, 101, 167));
+        verticalLayout_6 = new QVBoxLayout(widget_11);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        one = new QPushButton(widget_11);
+        one->setObjectName(QString::fromUtf8("one"));
+
+        verticalLayout_6->addWidget(one);
+
+        three = new QPushButton(widget_11);
+        three->setObjectName(QString::fromUtf8("three"));
+
+        verticalLayout_6->addWidget(three);
+
+        five = new QPushButton(widget_11);
+        five->setObjectName(QString::fromUtf8("five"));
+
+        verticalLayout_6->addWidget(five);
+
+        seven = new QPushButton(widget_11);
+        seven->setObjectName(QString::fromUtf8("seven"));
+
+        verticalLayout_6->addWidget(seven);
+
+        nine = new QPushButton(widget_11);
+        nine->setObjectName(QString::fromUtf8("nine"));
+
+        verticalLayout_6->addWidget(nine);
+
+        widget_12 = new QWidget(frame_4);
+        widget_12->setObjectName(QString::fromUtf8("widget_12"));
+        widget_12->setGeometry(QRect(0, 250, 411, 43));
+        horizontalLayout_10 = new QHBoxLayout(widget_12);
+        horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
+        pushButton = new QPushButton(widget_12);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        horizontalLayout_10->addWidget(pushButton);
+
+        pushButton_14 = new QPushButton(widget_12);
+        pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
+
+        horizontalLayout_10->addWidget(pushButton_14);
+
+        helpButton = new QPushButton(frame_4);
+        helpButton->setObjectName(QString::fromUtf8("helpButton"));
+        helpButton->setGeometry(QRect(160, 300, 83, 25));
+        QFont font3;
+        font3.setBold(true);
+        font3.setItalic(false);
+        font3.setUnderline(true);
+        font3.setWeight(75);
+        font3.setStrikeOut(false);
+        helpButton->setFont(font3);
+        helpButton->setStyleSheet(QString::fromUtf8("background:\"red\";color:white;"));
+        label_8 = new QLabel(frame_4);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setGeometry(QRect(40, 50, 121, 17));
+        elevatorSelectedSpinBox = new QSpinBox(frame_4);
+        elevatorSelectedSpinBox->setObjectName(QString::fromUtf8("elevatorSelectedSpinBox"));
+        elevatorSelectedSpinBox->setGeometry(QRect(280, 40, 45, 26));
         frame_5 = new QFrame(widget_3);
         frame_5->setObjectName(QString::fromUtf8("frame_5"));
         frame_5->setGeometry(QRect(419, 99, 431, 341));
@@ -459,9 +582,24 @@ public:
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;\"><br /></p></body></html>", nullptr));
         PassengerView_5->setText(QCoreApplication::translate("MainWindow", "F L O O R S  ", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "FLOOR PANEL", nullptr));
-        label_6->setText(QCoreApplication::translate("MainWindow", "Current Floor", nullptr));
+        label_6->setText(QCoreApplication::translate("MainWindow", "Starting Floor", nullptr));
         pushButtonUp->setText(QCoreApplication::translate("MainWindow", "UP", nullptr));
         pushButtonDown->setText(QCoreApplication::translate("MainWindow", "DOWN ", nullptr));
+        label_7->setText(QCoreApplication::translate("MainWindow", "ELEVATOR PANEL", nullptr));
+        two->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
+        four->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
+        six->setText(QCoreApplication::translate("MainWindow", "6", nullptr));
+        eight->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
+        ten->setText(QCoreApplication::translate("MainWindow", "10", nullptr));
+        one->setText(QCoreApplication::translate("MainWindow", "Gound ", nullptr));
+        three->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
+        five->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
+        seven->setText(QCoreApplication::translate("MainWindow", "7", nullptr));
+        nine->setText(QCoreApplication::translate("MainWindow", "9", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "Open Door", nullptr));
+        pushButton_14->setText(QCoreApplication::translate("MainWindow", "Close Door", nullptr));
+        helpButton->setText(QCoreApplication::translate("MainWindow", "HELP", nullptr));
+        label_8->setText(QCoreApplication::translate("MainWindow", "Elevator Selected", nullptr));
     } // retranslateUi
 
 };

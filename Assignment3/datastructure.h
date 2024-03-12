@@ -10,11 +10,10 @@
 class DataStructure
 {
 public:
-    DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors);
+    DataStructure(QGraphicsScene *scene, int x, int y, int width, int height, int nOfFloors, int elevatorNumber);
     void updateUI();
     ~DataStructure();
-    bool isFree();
-    void setFree(bool=true);
+    Rectangle* getElevator();
 
 private:
     int xAxis;//position of elevator on xaxis
@@ -22,7 +21,7 @@ private:
     bool free;
     Rectangle *elevator;
     std::list<Rectangle*> *floors;
-    void createElevator(QGraphicsScene *scene, int width, int height,int nOfFloors);
+    void createElevator(QGraphicsScene *scene, int width, int height,int nOfFloors,int elevatorNumber);
     void createFloors(QGraphicsScene *scene, int width, int height, int nOfFloors);
     void destroyFloorsAndElevator();
 };

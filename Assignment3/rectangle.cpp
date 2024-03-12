@@ -1,8 +1,9 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle(qreal w, qreal h,int x,int y, QGraphicsObject *parent) : QGraphicsObject(parent), width(w), height(h),x(x),y(y), brushColor(Qt::transparent)
+Rectangle::Rectangle(qreal w, qreal h,int x,int y,int number,int floor, QGraphicsObject *parent) : QGraphicsObject(parent), width(w), height(h),x(x),y(y), number(number),brushColor(Qt::transparent)
 {
-
+    free=true;
+    this->floor=floor;
 }
 
 QRectF Rectangle::boundingRect() const{
@@ -27,3 +28,31 @@ void Rectangle::setBackgroundColor(const QColor &color) {
     brushColor = color; // Set the brush color directly
     update(); // Call update to trigger repainting of the item with the new brush color
 }
+
+int Rectangle::getElevatorNumber(){
+    return number;
+}
+
+qreal  Rectangle::getHeight(){
+    return height;
+}
+
+int Rectangle::getXPos(){
+    return x;
+}
+
+void Rectangle::setFree(bool m){
+    free=m;
+}
+
+bool Rectangle::isFree(){
+    return free;
+}
+
+void Rectangle::setFloor(int f){
+    floor=f;
+}
+int Rectangle::getFloor(){
+    return floor;
+}
+

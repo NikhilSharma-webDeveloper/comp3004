@@ -13,14 +13,16 @@ SOURCES += \
     elevatorsandfloors.cpp \
     main.cpp \
     mainwindow.cpp \
-    rectangle.cpp
+    rectangle.cpp \
+    worker.cpp
 
 HEADERS += \
     datastructure.h \
     elevatorsandfloors.h \
     mainwindow.h \
     rectangle.h \
-    rectangle.h
+    rectangle.h \
+    worker.h
 
 FORMS += \
     mainwindow.ui

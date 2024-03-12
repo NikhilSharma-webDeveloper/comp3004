@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include "rectangle.h"
 #include "elevatorsandfloors.h"
+#include "worker.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,13 +24,24 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     ElevatorsAndFloors *completeUI;
+    void cleanupThreads();
+    QList<QThread*> workerThreads;
+    QList<int> floorsRequested;
+//    QList<Rectangle*> activelevators;
+    void pushButtonUpShine();
+    void pushButtonUpNormal();
+    void enableButtonsOnElevator(int);
+
 
 private slots:
     void onChangeDimensionClicked();
     void upElevatorRequested();
     void downElevatorRequested();
     void printUpdatesOnConsole(QString update);
-    void moveElevator(int floor);
+    void moveElevatorAnimation(const QPointF& targetPos,Rectangle*);
+    void elevatorToDestination();
+
+
 
 };
 #endif // MAINWINDOW_H
