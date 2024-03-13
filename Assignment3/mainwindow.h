@@ -31,6 +31,8 @@ private:
     void pushButtonUpShine();
     void pushButtonUpNormal();
     void enableButtonsOnElevator(int);
+    void pushButtonDownShine();
+    void pushButtonDownNormal();
 
 
 private slots:
@@ -40,6 +42,12 @@ private slots:
     void printUpdatesOnConsole(QString update);
     void moveElevatorAnimation(const QPointF& targetPos,Rectangle*);
     void elevatorToDestination();
+    void pushButtonOpenDoor();
+    void pushButtonCloseDoor();
+    void fire();
+    void powerOutage();
+    void helpButtonPressed();
+    void submitWeight();
 
 
 

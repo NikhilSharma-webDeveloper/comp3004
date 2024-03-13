@@ -19,15 +19,30 @@ public:
     int getFloor();
     bool isFree();
     void setFree(bool=true);
+    bool getDoorOpen();
+    bool setDoorOpen(bool);
+    bool setRequestToMove(bool s);
+    bool getRequestToMove();
+    void setDoorOver(bool b);
+    bool getDoorOver();
+    bool getEmergency();
+    bool setEmergency(bool);
+    void setWeight(double);
+    double getWeight();
 
 private:
     qreal width;
     qreal height;
+    bool emergency;
+    bool doorOpen;
+    bool requestToMove;
+    bool doorOver;
     int x;
     int y;
     int floor;
     int number;
     bool free;
+    double weight;
     QColor brushColor;
 };
 

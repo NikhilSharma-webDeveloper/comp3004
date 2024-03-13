@@ -4,6 +4,11 @@ Rectangle::Rectangle(qreal w, qreal h,int x,int y,int number,int floor, QGraphic
 {
     free=true;
     this->floor=floor;
+    doorOpen=false;
+    requestToMove=false;
+    doorOver=false;
+    emergency=false;
+    weight=150;
 }
 
 QRectF Rectangle::boundingRect() const{
@@ -56,3 +61,40 @@ int Rectangle::getFloor(){
     return floor;
 }
 
+bool Rectangle::getDoorOpen(){
+    return doorOpen;
+}
+bool Rectangle::setDoorOpen(bool open){
+     this->doorOpen=open;
+}
+
+bool Rectangle::getRequestToMove(){
+    return requestToMove;
+}
+bool Rectangle::setRequestToMove(bool s){
+     requestToMove=s;
+}
+
+void Rectangle::setDoorOver(bool b){
+    doorOver=b;
+}
+
+bool Rectangle::getDoorOver(){
+    return doorOver;
+}
+
+
+bool Rectangle::setEmergency(bool e){
+    emergency=e;
+}
+
+bool Rectangle::getEmergency(){
+    return emergency;
+}
+
+void Rectangle::setWeight(double w){
+    weight=w;
+}
+double Rectangle::getWeight(){
+    return weight;
+}

@@ -41,10 +41,14 @@ int ElevatorsAndFloors::getNoOfFloors(){
     return nOfFloors;
 }
 
-Rectangle* ElevatorsAndFloors::assignElevator(){
+Rectangle* ElevatorsAndFloors::assignElevator(int floor){
     Rectangle *temp=nullptr;
     for (auto it = data->begin(); it != data->end(); ++it) {
-           if((*it)->getElevator()->isFree()){
+
+        if((*it)->getElevator()->getFloor()==floor && (*it)->getElevator()->getDoorOpen()==true ){
+            temp=(*it)->getElevator();
+            break;}
+         if((*it)->getElevator()->isFree()){
                temp=(*it)->getElevator();
                break;
            }
@@ -55,10 +59,21 @@ Rectangle* ElevatorsAndFloors::assignElevator(){
 Rectangle* ElevatorsAndFloors::checkElevatorPosition(int floor, int elevator){
     auto l_front = data->begin();
     std::advance(l_front, elevator-1);
-    if((*l_front)->getElevator()->getFloor()==floor){l
+    if((*l_front)->getElevator()->getFloor()==floor){
         return (*l_front)->getElevator();
     }else{
         return nullptr;
     }
+}
+
+Rectangle* ElevatorsAndFloors::getElevator(int number){
+    auto l_front = data->begin();
+    std::advance(l_front, number-1);
+    return (*l_front)->getElevator();
+
+}
+
+int ElevatorsAndFloors::getNoOfElevators(){
+    return nOfElevators;
 }
 

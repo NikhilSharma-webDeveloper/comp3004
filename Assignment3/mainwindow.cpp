@@ -16,6 +16,9 @@
 #include <QDateTime>
 #include <QThread>
 #include "worker.h"
+#include <QMessageBox>
+#include <QTimer>
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -28,9 +31,12 @@ MainWindow::MainWindow(QWidget *parent) :
     int width=this->ui->graphicsView->width()-300;
     completeUI=new ElevatorsAndFloors(scene,width,height, 5,3);
     ui->graphicsView->setScene(scene); // Set the scene to the graphics view
-    ui->spinBoxFloors->setMaximum(4);
+    ui->spinBoxFloors->setMaximum(5);
+    ui->spinBoxFloors->setMinimum(1);
     ui->elevatorSelectedSpinBox->setMinimum(1);
     ui->elevatorSelectedSpinBox->setMaximum(3);
+    ui->elevatorSelectedForWeight->setMinimum(1);
+    ui->elevatorSelectedForWeight->setMaximum(3);
     connect(ui->changeDimensionBtn, SIGNAL(clicked(bool)), this, SLOT(onChangeDimensionClicked()));
     connect(ui->pushButtonUp, SIGNAL(clicked(bool)), this, SLOT(upElevatorRequested()));
     connect(ui->pushButtonDown, SIGNAL(clicked(bool)), this, SLOT(downElevatorRequested()));
@@ -44,6 +50,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->eight, SIGNAL(clicked(bool)), this, SLOT(elevatorToDestination()));
     connect(ui->nine, SIGNAL(clicked(bool)), this, SLOT(elevatorToDestination()));
     connect(ui->ten, SIGNAL(clicked(bool)), this, SLOT(elevatorToDestination()));
+    connect(ui->pushButtonOpenDoor,SIGNAL(clicked(bool)), this,SLOT(pushButtonOpenDoor()));
+    connect(ui->pushButtonCloseDoor,SIGNAL(clicked(bool)), this,SLOT(pushButtonCloseDoor()));
+    connect(ui->fireButton, SIGNAL(clicked(bool)), this, SLOT(fire()));
+    connect(ui->powerOutageButton, SIGNAL(clicked(bool)), this, SLOT(powerOutage()));
+    connect(ui->helpButton,SIGNAL(clicked(bool)), this, SLOT(helpButtonPressed()));
+    connect(ui->submitWeight,SIGNAL(clicked(bool)), this, SLOT(submitWeight()));
+
     enableButtonsOnElevator(5);
 }
 
@@ -63,9 +76,10 @@ void MainWindow::onChangeDimensionClicked(){
     update.append(QString::number(nOfFloors)); // Convert int to QString
     update.append(" And Number Of Elevators Are: ");
     update.append(QString::number(nOfElevators)); // Convert int to QString
-    ui->spinBoxFloors->setMaximum(nOfFloors-1);
+    ui->spinBoxFloors->setMaximum(nOfFloors);
     printUpdatesOnConsole(update);
     ui->elevatorSelectedSpinBox->setMaximum(nOfElevators);
+    ui->elevatorSelectedForWeight->setMaximum(nOfElevators);
     enableButtonsOnElevator(nOfFloors);
 }
 
@@ -92,6 +106,8 @@ void MainWindow::upElevatorRequested() {
     thread->start();
     // Connect the thread's started signal to the worker's processing slot
     connect(thread, &QThread::started, worker, &Worker::upElevatorRequested);
+    workerThreads.removeOne(thread);
+
 }
 
 
@@ -102,19 +118,23 @@ void MainWindow::downElevatorRequested() {
         return;
     }
     floorsRequested.append(ui->spinBoxFloors->value());
+    pushButtonDownShine();
     QThread* thread = new QThread(this);
-     workerThreads.append(thread);
+    workerThreads.append(thread);
     Worker* worker = new Worker(ui,completeUI,ui->spinBoxFloors->value());
     worker->moveToThread(thread);
 
     // Connect signals to update UI
     connect(worker, &Worker::consoleUpdate, this, &MainWindow::printUpdatesOnConsole);
     connect(worker, &Worker::moveElevatorAnimation, this, &MainWindow::moveElevatorAnimation);
+    connect(worker, &Worker::pushButtonDownNormal, this, &MainWindow::pushButtonDownNormal);
     connect(thread, &QThread::finished, worker, &QThread::deleteLater);
 
     thread->start();
     // Connect the thread's started signal to the worker's processing slot
     connect(thread, &QThread::started, worker, &Worker::downElevatorRequested);
+    workerThreads.removeOne(thread);
+
 
 }
 
@@ -140,7 +160,8 @@ void MainWindow::moveElevatorAnimation(const QPointF& targetPos, Rectangle* ele)
 void MainWindow::cleanupThreads() {
     for (QThread *thread : workerThreads) {
         if (thread->isRunning()) {
-            thread->quit(); // Request thread to quit
+            thread->terminate();
+            thread->wait();
         }
         delete thread; // Delete thread object
     }
@@ -151,8 +172,14 @@ void MainWindow::pushButtonUpShine(){
     ui->pushButtonUp->setStyleSheet("background-color: lightblue;");
 }
 void MainWindow::pushButtonUpNormal(){
-    qDebug()<<"Called to";
     ui->pushButtonUp->setStyleSheet("background: none;");
+}
+
+void MainWindow::pushButtonDownShine(){
+    ui->pushButtonDown->setStyleSheet("background-color: lightblue;");
+}
+void MainWindow::pushButtonDownNormal(){
+    ui->pushButtonDown->setStyleSheet("background: none;");
 }
 
 void MainWindow::elevatorToDestination(){
@@ -163,50 +190,150 @@ void MainWindow::elevatorToDestination(){
         Rectangle *elevator=nullptr;
         int targetFloor=0;
 
-         elevator=completeUI->checkElevatorPosition(currentFloor,selectedEle);
+         elevator=completeUI->checkElevatorPosition(currentFloor-1,selectedEle);
 
         if(elevator==nullptr){
-            QString update ="Elevator number "+QString::number(selectedEle)+ " is not on Floor: "+QString::number(currentFloor);
+            QString update ="Elevator Number "+QString::number(selectedEle)+ " is not on Floor Number: "+QString::number(currentFloor);
             printUpdatesOnConsole(update);
             return;
         }else{
-            QString update ="Elevator: "+QString::number(selectedEle)+" asked to move to floor number "+QString::number(1);
-        }
+            if(elevator->getDoorOpen()==false){
+                QString update ="Please Open door of Elevator Number: "+QString::number(selectedEle)+ " on Floor Number: "+QString::number(currentFloor);
+                printUpdatesOnConsole(update);
+                return;
+            }
+            /*QThread::msleep(3000)*/;
+            if (clickedButton) {
+                if (clickedButton == ui->one) {
+                    targetFloor=1;
+                } else if (clickedButton == ui->two) {
+                    targetFloor=2;
+                } else if (clickedButton == ui->three) {
+                    targetFloor=3;
+                } else if (clickedButton == ui->four) {
+                    targetFloor=4;
+                } else if (clickedButton == ui->five) {
+                    targetFloor=5;
+                } else if (clickedButton == ui->six) {
+                    targetFloor=6;
+                } else if (clickedButton == ui->seven) {
+                    targetFloor=7;
+                } else if (clickedButton == ui->eight) {
+                    targetFloor=8;
+                } else if (clickedButton == ui->nine) {
+                    targetFloor=9;
+                } else if (clickedButton == ui->ten) {
+                    targetFloor=10;
+                }
+            }
+            QString update ="Elevator: "+QString::number(selectedEle)+" asked to move to floor number "+QString::number(targetFloor);
+            printUpdatesOnConsole(update);
+            elevator->setRequestToMove(true);
+            QThread* thread = new QThread(this);
+            workerThreads.append(thread);
+            Worker* worker = new Worker(ui,completeUI,targetFloor, elevator);
+            worker->moveToThread(thread);
 
-                if (clickedButton) {
-                    if (clickedButton == ui->one) {
-                        targetFloor=1;
-                        elevator=completeUI->checkElevatorPosition(1,selectedEle);
-                    } else if (clickedButton == ui->two) {
-                        targetFloor=2;
-                         elevator=completeUI->checkElevatorPosition(2,selectedEle);
-                    } else if (clickedButton == ui->three) {
-                        targetFloor=3;
-                         elevator=completeUI->checkElevatorPosition(3,selectedEle);
-                    } else if (clickedButton == ui->four) {
-                        targetFloor=4;
-                        elevator=completeUI->checkElevatorPosition(4,selectedEle);
-                    } else if (clickedButton == ui->five) {
-                        targetFloor=5;
-                        elevator=completeUI->checkElevatorPosition(5,selectedEle);
-                    } else if (clickedButton == ui->six) {
-                        targetFloor=6;
-                        elevator=completeUI->checkElevatorPosition(6,selectedEle);
-                    } else if (clickedButton == ui->seven) {
-                        targetFloor=7;
-                        elevator=completeUI->checkElevatorPosition(7,selectedEle);
-                    } else if (clickedButton == ui->eight) {
-                        targetFloor=8;
-                        elevator=completeUI->checkElevatorPosition(8,selectedEle);
-                    } else if (clickedButton == ui->nine) {
-                        targetFloor=9;
-                        elevator=completeUI->checkElevatorPosition(9,selectedEle);
-                    } else if (clickedButton == ui->ten) {
-                        targetFloor=10;
-                        elevator=completeUI->checkElevatorPosition(10,selectedEle);
-                    }
+            // Connect signals to update UI
+            connect(worker, &Worker::consoleUpdate, this, &MainWindow::printUpdatesOnConsole);
+            connect(worker, &Worker::moveElevatorAnimation, this, &MainWindow::moveElevatorAnimation);
+
+            thread->start();
+            // Connect the thread's started signal to the worker's processing slot
+            connect(thread, &QThread::started, worker, &Worker::moveElevatorToFloor);
+            workerThreads.removeOne(thread);
+            floorsRequested.removeOne(currentFloor);
+
         }
 }
+
+void MainWindow::pushButtonOpenDoor(){
+    int selectedEle=ui->elevatorSelectedSpinBox->value();
+    Rectangle *currentEle=completeUI->getElevator(selectedEle);
+    QString update="Requested To Open Door of Elevator Number: "+QString::number(currentEle->getElevatorNumber());
+    printUpdatesOnConsole(update);
+    QThread* thread = new QThread(this);
+    workerThreads.append(thread);
+    Worker* worker = new Worker(ui,completeUI,ui->spinBoxFloors->value(),currentEle);
+    worker->moveToThread(thread);
+
+    // Connect signals to update UI
+    connect(worker, &Worker::consoleUpdate, this, &MainWindow::printUpdatesOnConsole);
+    connect(worker, &Worker::moveElevatorAnimation, this, &MainWindow::moveElevatorAnimation);
+    connect(thread, &QThread::finished, worker, &QThread::deleteLater);
+
+    thread->start();
+    // Connect the thread's started signal to the worker's processing slot
+    connect(thread, &QThread::started, worker, &Worker::overrideTimer);
+    workerThreads.removeOne(thread);
+
+}
+
+void MainWindow::pushButtonCloseDoor(){
+    int selectedEle=ui->elevatorSelectedSpinBox->value();
+    Rectangle *currentEle=completeUI->getElevator(selectedEle);
+    QString update="Bell Rangs, Door Closing for elevator "+QString::number(currentEle->getElevatorNumber());
+    currentEle->setDoorOpen(false);
+    currentEle->setDoorOver(false);
+    printUpdatesOnConsole(update);
+}
+
+void MainWindow::fire(){
+    cleanupThreads();
+    QString update="Fire Reported in Building !!!. Moving All the Elevators to Floor 1";
+    printUpdatesOnConsole(update);
+
+     for(int i=0;i<completeUI->getNoOfElevators();i++){
+        Rectangle *ele=completeUI->getElevator(i+1);
+        ele->setEmergency(true);
+        if(ele->getFloor()!=0){
+            QThread* thread = new QThread(this);
+            workerThreads.append(thread);
+            Worker* worker = new Worker(ui,completeUI,ui->spinBoxFloors->value(),ele);
+            worker->moveToThread(thread);
+
+            // Connect signals to update UI
+            connect(worker, &Worker::consoleUpdate, this, &MainWindow::printUpdatesOnConsole);
+            connect(worker, &Worker::moveElevatorAnimation, this, &MainWindow::moveElevatorAnimation);
+            connect(thread, &QThread::finished, worker, &QThread::deleteLater);
+
+            thread->start();
+            // Connect the thread's started signal to the worker's processing slot
+            connect(thread, &QThread::started, worker, &Worker::fire);
+            workerThreads.removeOne(thread);
+        }
+     }
+
+
+}
+
+void MainWindow::powerOutage(){
+    cleanupThreads();
+    QString update="Power Outage Reported in Building !!!. Moving All the Elevators to Floor 1";
+    printUpdatesOnConsole(update);
+     for(int i=0;i<completeUI->getNoOfElevators();i++){
+        Rectangle *ele=completeUI->getElevator(i+1);
+        ele->setEmergency(true);
+        if(ele->getFloor()!=0){
+            QThread* thread = new QThread(this);
+            workerThreads.append(thread);
+            Worker* worker = new Worker(ui,completeUI,ui->spinBoxFloors->value(),ele);
+            worker->moveToThread(thread);
+
+            // Connect signals to update UI
+            connect(worker, &Worker::consoleUpdate, this, &MainWindow::printUpdatesOnConsole);
+            connect(worker, &Worker::moveElevatorAnimation, this, &MainWindow::moveElevatorAnimation);
+            connect(thread, &QThread::finished, worker, &QThread::deleteLater);
+
+            thread->start();
+            // Connect the thread's started signal to the worker's processing slot
+            connect(thread, &QThread::started, worker, &Worker::powerOutage);
+            workerThreads.removeOne(thread);
+        }
+     }
+}
+
+
 
 
 void MainWindow::enableButtonsOnElevator(int nOfEnable){
@@ -288,4 +415,65 @@ void MainWindow::enableButtonsOnElevator(int nOfEnable){
 
         }
     }
+}
+
+void MainWindow::helpButtonPressed() {
+    int selectedEle = ui->elevatorSelectedSpinBox->value();
+    QString update = "Received Help Call From Elevator Number " + QString::number(selectedEle);
+    printUpdatesOnConsole(update);
+
+    QMessageBox* msgBox = new QMessageBox(this);
+    msgBox->setWindowTitle("HELP!!!!!!");
+    msgBox->setText("Help Button Pressed From Elevator Number: " + QString::number(selectedEle) + " Do you want to Connect");
+    msgBox->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+    // Flag to track if the timeout occurred
+    bool timeoutOccurred = false;
+
+    // Create a timer to close the message box after 5 seconds
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, [=, &timeoutOccurred]() {
+        if (!timeoutOccurred) {
+            QString timeoutMsg = "No response received. Initiating 911 call.";
+            printUpdatesOnConsole(timeoutMsg);
+            timeoutOccurred = true; // Set the flag to true to indicate timeout occurred
+        }
+        timer->stop(); // Stop the timer
+        msgBox->close(); // Close the message box
+    });
+    timer->start(5000); // Start the timer for 5 seconds
+
+    // Connect the button clicked signal to close the message box and print messages
+    connect(msgBox, &QMessageBox::buttonClicked, [=, &timeoutOccurred](QAbstractButton* button){
+        timer->stop(); // Stop the timer when the user responds to the message box
+        if (msgBox->standardButton(button) == QMessageBox::Ok) {
+            QString connectMsg = "Connected.";
+            printUpdatesOnConsole(connectMsg);
+        } else {
+            QString cancelMsg = "911 call is placed.";
+            printUpdatesOnConsole(cancelMsg);
+        }
+        msgBox->close(); // Close the message box
+    });
+
+    // Set the size of the message box to 50% of the current window's size
+    int width = this->width() / 2;
+    int height = this->height() / 2;
+    msgBox->resize(width, height);
+
+    msgBox->exec(); // Show the message box
+}
+
+void MainWindow::submitWeight(){
+    int selectedElevator = ui->elevatorSelectedForWeight->value();
+    QString str = ui->elevatorSelectedForWeight->text();
+    bool flag = false;
+    double weight = str.toDouble(&flag);
+    qDebug()<<weight<<flag<< str;
+    if (!flag) {
+        QString errorMsg = "Invalid Weight Value. Only integer or double values are allowed.";
+        printUpdatesOnConsole(errorMsg);
+        return;
+    }
+
 }

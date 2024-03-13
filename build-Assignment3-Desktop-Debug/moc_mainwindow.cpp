@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[11];
-    char stringdata0[173];
+    QByteArrayData data[17];
+    char stringdata0[260];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,14 +42,23 @@ QT_MOC_LITERAL(6, 101, 6), // "update"
 QT_MOC_LITERAL(7, 108, 21), // "moveElevatorAnimation"
 QT_MOC_LITERAL(8, 130, 9), // "targetPos"
 QT_MOC_LITERAL(9, 140, 10), // "Rectangle*"
-QT_MOC_LITERAL(10, 151, 21) // "elevatorToDestination"
+QT_MOC_LITERAL(10, 151, 21), // "elevatorToDestination"
+QT_MOC_LITERAL(11, 173, 18), // "pushButtonOpenDoor"
+QT_MOC_LITERAL(12, 192, 19), // "pushButtonCloseDoor"
+QT_MOC_LITERAL(13, 212, 4), // "fire"
+QT_MOC_LITERAL(14, 217, 11), // "powerOutage"
+QT_MOC_LITERAL(15, 229, 17), // "helpButtonPressed"
+QT_MOC_LITERAL(16, 247, 12) // "submitWeight"
 
     },
     "MainWindow\0onChangeDimensionClicked\0"
     "\0upElevatorRequested\0downElevatorRequested\0"
     "printUpdatesOnConsole\0update\0"
     "moveElevatorAnimation\0targetPos\0"
-    "Rectangle*\0elevatorToDestination"
+    "Rectangle*\0elevatorToDestination\0"
+    "pushButtonOpenDoor\0pushButtonCloseDoor\0"
+    "fire\0powerOutage\0helpButtonPressed\0"
+    "submitWeight"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +68,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -67,12 +76,18 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x08 /* Private */,
-       3,    0,   45,    2, 0x08 /* Private */,
-       4,    0,   46,    2, 0x08 /* Private */,
-       5,    1,   47,    2, 0x08 /* Private */,
-       7,    2,   50,    2, 0x08 /* Private */,
-      10,    0,   55,    2, 0x08 /* Private */,
+       1,    0,   74,    2, 0x08 /* Private */,
+       3,    0,   75,    2, 0x08 /* Private */,
+       4,    0,   76,    2, 0x08 /* Private */,
+       5,    1,   77,    2, 0x08 /* Private */,
+       7,    2,   80,    2, 0x08 /* Private */,
+      10,    0,   85,    2, 0x08 /* Private */,
+      11,    0,   86,    2, 0x08 /* Private */,
+      12,    0,   87,    2, 0x08 /* Private */,
+      13,    0,   88,    2, 0x08 /* Private */,
+      14,    0,   89,    2, 0x08 /* Private */,
+      15,    0,   90,    2, 0x08 /* Private */,
+      16,    0,   91,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -80,6 +95,12 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    6,
     QMetaType::Void, QMetaType::QPointF, 0x80000000 | 9,    8,    2,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -97,6 +118,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->printUpdatesOnConsole((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->moveElevatorAnimation((*reinterpret_cast< const QPointF(*)>(_a[1])),(*reinterpret_cast< Rectangle*(*)>(_a[2]))); break;
         case 5: _t->elevatorToDestination(); break;
+        case 6: _t->pushButtonOpenDoor(); break;
+        case 7: _t->pushButtonCloseDoor(); break;
+        case 8: _t->fire(); break;
+        case 9: _t->powerOutage(); break;
+        case 10: _t->helpButtonPressed(); break;
+        case 11: _t->submitWeight(); break;
         default: ;
         }
     }
@@ -131,13 +158,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 12;
     }
     return _id;
 }

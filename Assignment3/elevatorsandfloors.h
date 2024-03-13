@@ -14,9 +14,11 @@ public:
     ElevatorsAndFloors(QGraphicsScene *scene,int width, int height, int nOfFl=5, int nOfEl=3);
     ~ElevatorsAndFloors();
     void updateUi(QGraphicsScene *scene,int nOfFloors, int nOfElevators);
-    Rectangle* assignElevator();
+    Rectangle* assignElevator(int floor);
     int getNoOfFloors();
+    int getNoOfElevators();
     Rectangle* checkElevatorPosition(int floor, int elevator);
+    Rectangle* getElevator(int number);
 
 
 private:

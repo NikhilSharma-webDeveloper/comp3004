@@ -15,6 +15,7 @@
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
@@ -68,8 +69,8 @@ public:
     QLabel *label_4;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_8;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
+    QPushButton *fireButton;
+    QPushButton *powerOutageButton;
     QWidget *widget_8;
     QTextBrowser *consoleOutput;
     QWidget *widget_7;
@@ -104,12 +105,22 @@ public:
     QPushButton *nine;
     QWidget *widget_12;
     QHBoxLayout *horizontalLayout_10;
-    QPushButton *pushButton;
-    QPushButton *pushButton_14;
+    QPushButton *pushButtonOpenDoor;
+    QPushButton *pushButtonCloseDoor;
     QPushButton *helpButton;
     QLabel *label_8;
     QSpinBox *elevatorSelectedSpinBox;
     QFrame *frame_5;
+    QWidget *widget_13;
+    QWidget *widget_15;
+    QWidget *widget_14;
+    QLabel *label_9;
+    QLabel *label_10;
+    QLineEdit *lineEditForWeight;
+    QPushButton *submitWeight;
+    QLabel *label_11;
+    QSpinBox *elevatorSelectedForWeight;
+    QFrame *line;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -347,15 +358,15 @@ public:
         widget_2->setGeometry(QRect(10, 50, 391, 91));
         verticalLayout_8 = new QVBoxLayout(widget_2);
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
-        pushButton_2 = new QPushButton(widget_2);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        fireButton = new QPushButton(widget_2);
+        fireButton->setObjectName(QString::fromUtf8("fireButton"));
 
-        verticalLayout_8->addWidget(pushButton_2);
+        verticalLayout_8->addWidget(fireButton);
 
-        pushButton_3 = new QPushButton(widget_2);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        powerOutageButton = new QPushButton(widget_2);
+        powerOutageButton->setObjectName(QString::fromUtf8("powerOutageButton"));
 
-        verticalLayout_8->addWidget(pushButton_3);
+        verticalLayout_8->addWidget(powerOutageButton);
 
 
         horizontalLayout_8->addWidget(frame_2);
@@ -521,15 +532,15 @@ public:
         widget_12->setGeometry(QRect(0, 250, 411, 43));
         horizontalLayout_10 = new QHBoxLayout(widget_12);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        pushButton = new QPushButton(widget_12);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButtonOpenDoor = new QPushButton(widget_12);
+        pushButtonOpenDoor->setObjectName(QString::fromUtf8("pushButtonOpenDoor"));
 
-        horizontalLayout_10->addWidget(pushButton);
+        horizontalLayout_10->addWidget(pushButtonOpenDoor);
 
-        pushButton_14 = new QPushButton(widget_12);
-        pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
+        pushButtonCloseDoor = new QPushButton(widget_12);
+        pushButtonCloseDoor->setObjectName(QString::fromUtf8("pushButtonCloseDoor"));
 
-        horizontalLayout_10->addWidget(pushButton_14);
+        horizontalLayout_10->addWidget(pushButtonCloseDoor);
 
         helpButton = new QPushButton(frame_4);
         helpButton->setObjectName(QString::fromUtf8("helpButton"));
@@ -553,6 +564,52 @@ public:
         frame_5->setGeometry(QRect(419, 99, 431, 341));
         frame_5->setFrameShape(QFrame::StyledPanel);
         frame_5->setFrameShadow(QFrame::Raised);
+        widget_13 = new QWidget(frame_5);
+        widget_13->setObjectName(QString::fromUtf8("widget_13"));
+        widget_13->setGeometry(QRect(0, 0, 431, 341));
+        widget_15 = new QWidget(widget_13);
+        widget_15->setObjectName(QString::fromUtf8("widget_15"));
+        widget_15->setGeometry(QRect(1, -1, 431, 341));
+        widget_14 = new QWidget(widget_15);
+        widget_14->setObjectName(QString::fromUtf8("widget_14"));
+        widget_14->setGeometry(QRect(0, 0, 413, 159));
+        label_9 = new QLabel(widget_14);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setGeometry(QRect(110, 10, 161, 20));
+        label_9->setFont(font1);
+        label_9->setAlignment(Qt::AlignCenter);
+        label_10 = new QLabel(widget_14);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setGeometry(QRect(20, 50, 121, 17));
+        lineEditForWeight = new QLineEdit(widget_14);
+        lineEditForWeight->setObjectName(QString::fromUtf8("lineEditForWeight"));
+        lineEditForWeight->setGeometry(QRect(310, 50, 41, 25));
+        QFont font4;
+        font4.setPointSize(8);
+        lineEditForWeight->setFont(font4);
+        lineEditForWeight->setAutoFillBackground(true);
+        lineEditForWeight->setInputMethodHints(Qt::ImhNone);
+        submitWeight = new QPushButton(widget_14);
+        submitWeight->setObjectName(QString::fromUtf8("submitWeight"));
+        submitWeight->setGeometry(QRect(80, 90, 241, 25));
+        label_11 = new QLabel(widget_14);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setGeometry(QRect(10, 120, 401, 17));
+        QFont font5;
+        font5.setPointSize(8);
+        font5.setBold(true);
+        font5.setWeight(75);
+        label_11->setFont(font5);
+        label_11->setLayoutDirection(Qt::LeftToRight);
+        label_11->setAlignment(Qt::AlignCenter);
+        elevatorSelectedForWeight = new QSpinBox(widget_14);
+        elevatorSelectedForWeight->setObjectName(QString::fromUtf8("elevatorSelectedForWeight"));
+        elevatorSelectedForWeight->setGeometry(QRect(200, 50, 45, 26));
+        line = new QFrame(widget_15);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setGeometry(QRect(0, 160, 421, 16));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -573,8 +630,8 @@ public:
         changeDimensionBtn->setText(QCoreApplication::translate("MainWindow", "Change Dimensions", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "MAP SETTINGS", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Building Emergency Testing", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Fire", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("MainWindow", "Power Outage", nullptr));
+        fireButton->setText(QCoreApplication::translate("MainWindow", "Fire", nullptr));
+        powerOutageButton->setText(QCoreApplication::translate("MainWindow", "Power Outage", nullptr));
         consoleOutput->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -596,10 +653,15 @@ public:
         five->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         seven->setText(QCoreApplication::translate("MainWindow", "7", nullptr));
         nine->setText(QCoreApplication::translate("MainWindow", "9", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Open Door", nullptr));
-        pushButton_14->setText(QCoreApplication::translate("MainWindow", "Close Door", nullptr));
+        pushButtonOpenDoor->setText(QCoreApplication::translate("MainWindow", "Open Door", nullptr));
+        pushButtonCloseDoor->setText(QCoreApplication::translate("MainWindow", "Close Door", nullptr));
         helpButton->setText(QCoreApplication::translate("MainWindow", "HELP", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Elevator Selected", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "ELEVATOR PANEL", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Elevator Selected", nullptr));
+        lineEditForWeight->setText(QCoreApplication::translate("MainWindow", "150", nullptr));
+        submitWeight->setText(QCoreApplication::translate("MainWindow", "Submit Weight", nullptr));
+        label_11->setText(QCoreApplication::translate("MainWindow", "Maximum Safe Operational Weight Of Elevator is 250 Kg", nullptr));
     } // retranslateUi
 
 };
