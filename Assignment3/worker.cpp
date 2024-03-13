@@ -21,14 +21,23 @@ void Worker::upElevatorRequested() {
             currentEle->setDoorOpen(true);
         }
         QThread::msleep(10000);
-        while(currentEle->getDoorOver()==true){
+        while(currentEle->getDoorOver()==true && currentEle->getWeight()<=250){
            QThread::msleep(3000);
+        }
+
+        while(currentEle->getDoorBlocked()==true){
+            update="Door for Elevator Number: "+QString::number(currentEle->getElevatorNumber())+ " is Blocked Please Unblock it. Message Played in Elevator";
+            emit consoleUpdate(update);
+            QThread::msleep(3000);
         }
         currentEle->setDoorOver(false);
         if(currentEle->getDoorOpen()==true && currentEle->getEmergency()==false){
             update="Bell Rangs, Door Closing for elevator "+QString::number(currentEle->getElevatorNumber());
             currentEle->setDoorOpen(false);
             emit consoleUpdate(update);
+            if(currentEle->getRequestToMove()==false){
+                currentEle->setFree(true);
+            }
         }
 
 
@@ -50,14 +59,22 @@ void Worker::downElevatorRequested() {
             currentEle->setDoorOpen(true);
         }
         QThread::msleep(10000);
-        while(currentEle->getDoorOver()==true){
+        while(currentEle->getDoorOver()==true && currentEle->getWeight()<=250){
            QThread::msleep(3000);
+        }
+        while(currentEle->getDoorBlocked()==true){
+            update="Door for Elevator Number: "+QString::number(currentEle->getElevatorNumber())+ " is Blocked Please Unblock it. Message Played in Elevator";
+            emit consoleUpdate(update);
+            QThread::msleep(3000);
         }
         currentEle->setDoorOver(false);
         if(currentEle->getDoorOpen()==true && currentEle->getEmergency()==false ){
             update="Bell Rangs, Door Closing for elevator "+QString::number(currentEle->getElevatorNumber());
             currentEle->setDoorOpen(false);
             emit consoleUpdate(update);
+            if(currentEle->getRequestToMove()==false){
+                currentEle->setFree(true);
+            }
         }
 
 }
@@ -75,6 +92,11 @@ void Worker::overrideTimer(){
     currentEle->setDoorOpen(true);
     currentEle->setDoorOver(true);
     QThread::msleep(10000);
+    while(currentEle->getDoorBlocked()==true){
+        QString update="Door for Elevator Number: "+QString::number(currentEle->getElevatorNumber())+" is Blocked Please Unblock it. Message Played in Elevator";
+        emit consoleUpdate(update);
+        QThread::msleep(3000);
+    }
     QString update="Bell Rangs, Door Closing for elevator "+QString::number(currentEle->getElevatorNumber());
     emit consoleUpdate(update);
     currentEle->setDoorOpen(false);
@@ -90,6 +112,12 @@ Rectangle* Worker::moveElevator(int floor){
         qDebug()<<"All Elevators Are Busy right now";
         elevator=completeUi->assignElevator(floor);
     }
+
+    while(elevator->getWeight()>250){
+         QString update= "Elevator Number : "+(QString::number((elevator->getElevatorNumber())))+ " is OverWeight. Please Reduce weight to 250 Kg";
+         emit consoleUpdate(update);
+         QThread::msleep(4000);
+    }
     elevator->setFree(false);
     elevator->setFloor(floor);
     QString update= "Elevator Number : "+(QString::number((elevator->getElevatorNumber())))+" is moving to "+(QString::number(floor+1))+ " floor";
@@ -102,6 +130,16 @@ Rectangle* Worker::moveElevator(int floor){
 }
 
 void Worker::moveElevator(int floor, Rectangle *elevator){
+    while(elevator->getDoorBlocked()==true){
+        QString update="Door for Elevator Number: "+QString::number(elevator->getElevatorNumber())+" is Blocked Please Unblock it. Message Played in Elevator";
+        emit consoleUpdate(update);
+        QThread::msleep(3000);
+    }
+    while(elevator->getWeight()>250){
+         QString update= "Elevator Number : "+(QString::number((elevator->getElevatorNumber())))+ " is OverWeight. Please Reduce weight to 250 Kg";
+         emit consoleUpdate(update);
+         QThread::msleep(4000);
+    }
     QString update= "Elevator Number : "+(QString::number((elevator->getElevatorNumber())))+" is moving to "+(QString::number(floor+1))+ " floor";
     emit consoleUpdate(update);
     QPointF pos=calculatePos(elevator->getHeight(), elevator->getXPos(), floor);
@@ -113,10 +151,23 @@ void Worker::moveElevator(int floor, Rectangle *elevator){
 void Worker::moveElevatorToFloor(){
     Rectangle *elevator=currentEle;
     QThread::msleep(10000);
+
+    while(elevator->getDoorBlocked()==true){
+        QString update="Door for Elevator Number: "+QString::number(currentEle->getElevatorNumber())+ " is Blocked Please Unblock it. Message Played in Elevator";
+        emit consoleUpdate(update);
+         QThread::msleep(3000);
+    }
+
     while(elevator->getDoorOpen()==true){
          QString update="Doors Are Open On Elevator "+QString::number(currentEle->getElevatorNumber())+ " Please Close It";
          emit consoleUpdate(update);
          QThread::msleep(10000);
+    }
+
+    while(elevator->getWeight()>250){
+         QString update= "Elevator Number : "+(QString::number((elevator->getElevatorNumber())))+ " is OverWeight. Please Reduce weight to 250 Kg";
+         emit consoleUpdate(update);
+         QThread::msleep(4000);
     }
     QPointF pos=calculatePos(elevator->getHeight(), elevator->getXPos(), floor-1);
     emit moveElevatorAnimation(pos,elevator);
@@ -150,7 +201,6 @@ void Worker::fire(){
           moveElevator(0,currentEle);
           message="Elevator Number "+QString::number(currentEle->getElevatorNumber())+" Arrived At Floor number 1. Please Disembark";
           emit consoleUpdate(message);
-          QThread::msleep(10000);
           currentEle->setEmergency(false);
           currentEle->setFloor(1);
           currentEle->setDoorOpen(false);
@@ -172,7 +222,6 @@ void Worker::powerOutage(){
      moveElevator(0,currentEle);
      message="Elevator Number "+QString::number(currentEle->getElevatorNumber())+" Arrived At Floor number 1. Please Disembark";
      emit consoleUpdate(message);
-     QThread::msleep(10000);
      currentEle->setEmergency(false);
      currentEle->setFloor(1);
      currentEle->setDoorOpen(false);

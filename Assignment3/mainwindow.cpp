@@ -56,7 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->powerOutageButton, SIGNAL(clicked(bool)), this, SLOT(powerOutage()));
     connect(ui->helpButton,SIGNAL(clicked(bool)), this, SLOT(helpButtonPressed()));
     connect(ui->submitWeight,SIGNAL(clicked(bool)), this, SLOT(submitWeight()));
-
+    connect(ui->pushButtonBlockDoor,SIGNAL(clicked(bool)), this, SLOT(blockDoor()));
+    connect(ui->pushButtonBlockDoor_2,SIGNAL(clicked(bool)), this, SLOT(unBlockDoor()));
+    ui->elevatorSelectedForDoorBlock->setMinimum(1);
+    ui->elevatorSelectedForDoorBlock->setMaximum(3);
     enableButtonsOnElevator(5);
 }
 
@@ -80,16 +83,12 @@ void MainWindow::onChangeDimensionClicked(){
     printUpdatesOnConsole(update);
     ui->elevatorSelectedSpinBox->setMaximum(nOfElevators);
     ui->elevatorSelectedForWeight->setMaximum(nOfElevators);
+    ui->elevatorSelectedForDoorBlock->setMaximum(nOfElevators);
     enableButtonsOnElevator(nOfFloors);
 }
 
 void MainWindow::upElevatorRequested() {
     //lets say if we are already handling the request for the floor system will not allocate new elevator for same request
-    if(floorsRequested.indexOf(ui->spinBoxFloors->value())!=-1){
-        QString update ="Please Use the Elevator Present on floor number: "+QString::number(ui->spinBoxFloors->value()) ;
-        printUpdatesOnConsole(update);
-        return;
-    }
     floorsRequested.append(ui->spinBoxFloors->value());
     pushButtonUpShine();
     QThread* thread = new QThread(this);
@@ -112,11 +111,7 @@ void MainWindow::upElevatorRequested() {
 
 
 void MainWindow::downElevatorRequested() {
-    if(floorsRequested.indexOf(ui->spinBoxFloors->value())!=-1){
-        QString update ="Please Use the Elevator Present on floor number: "+QString::number(ui->spinBoxFloors->value()) ;
-        printUpdatesOnConsole(update);
-        return;
-    }
+
     floorsRequested.append(ui->spinBoxFloors->value());
     pushButtonDownShine();
     QThread* thread = new QThread(this);
@@ -229,6 +224,7 @@ void MainWindow::elevatorToDestination(){
             QString update ="Elevator: "+QString::number(selectedEle)+" asked to move to floor number "+QString::number(targetFloor);
             printUpdatesOnConsole(update);
             elevator->setRequestToMove(true);
+            elevator->setFree(false);
             QThread* thread = new QThread(this);
             workerThreads.append(thread);
             Worker* worker = new Worker(ui,completeUI,targetFloor, elevator);
@@ -272,9 +268,23 @@ void MainWindow::pushButtonOpenDoor(){
 void MainWindow::pushButtonCloseDoor(){
     int selectedEle=ui->elevatorSelectedSpinBox->value();
     Rectangle *currentEle=completeUI->getElevator(selectedEle);
+    if(currentEle->getWeight()>250){
+        QString update="Door Cannot be Closed for Elevator Number: "+QString::number(currentEle->getElevatorNumber())+" Please reduce the Weight";
+        printUpdatesOnConsole(update);
+        return;
+    }
+
+    if(currentEle->getDoorBlocked()==true){
+        QString update="Door for Elevator Number: "+QString::number(currentEle->getElevatorNumber())+ " is Blocked Please Unblock it. Message Played in Elevator";
+        printUpdatesOnConsole(update);
+        return;
+    }
     QString update="Bell Rangs, Door Closing for elevator "+QString::number(currentEle->getElevatorNumber());
     currentEle->setDoorOpen(false);
     currentEle->setDoorOver(false);
+    if(currentEle->getRequestToMove()==false){
+        currentEle->setFree(true);
+    }
     printUpdatesOnConsole(update);
 }
 
@@ -332,7 +342,6 @@ void MainWindow::powerOutage(){
         }
      }
 }
-
 
 
 
@@ -466,14 +475,35 @@ void MainWindow::helpButtonPressed() {
 
 void MainWindow::submitWeight(){
     int selectedElevator = ui->elevatorSelectedForWeight->value();
-    QString str = ui->elevatorSelectedForWeight->text();
-    bool flag = false;
+    QString str = ui->lineEditForWeight->text();
+    bool flag = true;
     double weight = str.toDouble(&flag);
-    qDebug()<<weight<<flag<< str;
+
     if (!flag) {
         QString errorMsg = "Invalid Weight Value. Only integer or double values are allowed.";
         printUpdatesOnConsole(errorMsg);
         return;
+    }else{
+        Rectangle* elevator=completeUI->getElevator(selectedElevator);
+        elevator->setWeight(weight);
+        QString update = "Weight Of Elevator Number " + QString::number(elevator->getElevatorNumber())+ " is "+QString::number(weight)+ " KG";
+        printUpdatesOnConsole(update);
     }
 
+}
+
+void MainWindow::blockDoor(){
+    int selectedElevator=ui->elevatorSelectedForDoorBlock->value();
+    Rectangle* elevator=completeUI->getElevator(selectedElevator);
+    elevator->setDoorBlocked(true);
+    QString update = "Door Of Elevator Number " + QString::number(elevator->getElevatorNumber())+ " is Blocked";
+    printUpdatesOnConsole(update);
+}
+
+void MainWindow::unBlockDoor(){
+    int selectedElevator=ui->elevatorSelectedForDoorBlock->value();
+    Rectangle* elevator=completeUI->getElevator(selectedElevator);
+    elevator->setDoorBlocked(false);
+    QString update = "Door Of Elevator Number " + QString::number(elevator->getElevatorNumber())+ " is unBlocked";
+    printUpdatesOnConsole(update);
 }

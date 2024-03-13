@@ -121,6 +121,12 @@ public:
     QLabel *label_11;
     QSpinBox *elevatorSelectedForWeight;
     QFrame *line;
+    QLabel *label_12;
+    QWidget *widget_16;
+    QLabel *label_13;
+    QSpinBox *elevatorSelectedForDoorBlock;
+    QPushButton *pushButtonBlockDoor;
+    QPushButton *pushButtonBlockDoor_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -589,6 +595,7 @@ public:
         lineEditForWeight->setFont(font4);
         lineEditForWeight->setAutoFillBackground(true);
         lineEditForWeight->setInputMethodHints(Qt::ImhNone);
+        lineEditForWeight->setText(QString::fromUtf8("150"));
         submitWeight = new QPushButton(widget_14);
         submitWeight->setObjectName(QString::fromUtf8("submitWeight"));
         submitWeight->setGeometry(QRect(80, 90, 241, 25));
@@ -610,6 +617,26 @@ public:
         line->setGeometry(QRect(0, 160, 421, 16));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
+        label_12 = new QLabel(widget_15);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setGeometry(QRect(120, 180, 161, 20));
+        label_12->setFont(font1);
+        label_12->setAlignment(Qt::AlignCenter);
+        widget_16 = new QWidget(widget_15);
+        widget_16->setObjectName(QString::fromUtf8("widget_16"));
+        widget_16->setGeometry(QRect(0, 210, 411, 111));
+        label_13 = new QLabel(widget_16);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setGeometry(QRect(20, 20, 121, 17));
+        elevatorSelectedForDoorBlock = new QSpinBox(widget_16);
+        elevatorSelectedForDoorBlock->setObjectName(QString::fromUtf8("elevatorSelectedForDoorBlock"));
+        elevatorSelectedForDoorBlock->setGeometry(QRect(290, 10, 45, 26));
+        pushButtonBlockDoor = new QPushButton(widget_16);
+        pushButtonBlockDoor->setObjectName(QString::fromUtf8("pushButtonBlockDoor"));
+        pushButtonBlockDoor->setGeometry(QRect(20, 60, 151, 25));
+        pushButtonBlockDoor_2 = new QPushButton(widget_16);
+        pushButtonBlockDoor_2->setObjectName(QString::fromUtf8("pushButtonBlockDoor_2"));
+        pushButtonBlockDoor_2->setGeometry(QRect(240, 60, 151, 25));
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -659,9 +686,12 @@ public:
         label_8->setText(QCoreApplication::translate("MainWindow", "Elevator Selected", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "ELEVATOR PANEL", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "Elevator Selected", nullptr));
-        lineEditForWeight->setText(QCoreApplication::translate("MainWindow", "150", nullptr));
         submitWeight->setText(QCoreApplication::translate("MainWindow", "Submit Weight", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Maximum Safe Operational Weight Of Elevator is 250 Kg", nullptr));
+        label_12->setText(QCoreApplication::translate("MainWindow", "ELEVATOR PANEL", nullptr));
+        label_13->setText(QCoreApplication::translate("MainWindow", "Elevator Selected", nullptr));
+        pushButtonBlockDoor->setText(QCoreApplication::translate("MainWindow", "Block Door", nullptr));
+        pushButtonBlockDoor_2->setText(QCoreApplication::translate("MainWindow", "Un Block Door", nullptr));
     } // retranslateUi
 
 };

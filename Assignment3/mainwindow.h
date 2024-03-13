@@ -48,6 +48,8 @@ private slots:
     void powerOutage();
     void helpButtonPressed();
     void submitWeight();
+    void blockDoor();
+    void unBlockDoor();
 
 
 

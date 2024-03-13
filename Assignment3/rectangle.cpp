@@ -98,3 +98,11 @@ void Rectangle::setWeight(double w){
 double Rectangle::getWeight(){
     return weight;
 }
+
+
+bool Rectangle::getDoorBlocked(){
+    return doorBlocked;
+}
+void Rectangle::setDoorBlocked(bool b){
+    this->doorBlocked=b;
+}

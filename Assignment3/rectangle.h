@@ -29,6 +29,8 @@ public:
     bool setEmergency(bool);
     void setWeight(double);
     double getWeight();
+    bool getDoorBlocked();
+    void setDoorBlocked(bool);
 
 private:
     qreal width;
@@ -44,6 +46,6 @@ private:
     bool free;
     double weight;
     QColor brushColor;
-};
+    bool doorBlocked;};
 
 #endif // RECTANGLE_H
